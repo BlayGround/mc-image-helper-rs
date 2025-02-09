@@ -92,15 +92,14 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     match cli.command {
         Commands::InstallModrinthModpack(args) => {
-            let loader_str = format!(
-                "{:?}",
-                args.loader
-                    .as_ref()
-                    .unwrap()
-                    .iter()
-                    .map(LoaderType::as_str)
-                    .collect::<Vec<_>>()
-            );
+            let loader_str = if let Some(ref loader) = args.loader {
+                Some(format!(
+                    "{:?}",
+                    loader.iter().map(LoaderType::as_str).collect::<Vec<_>>()
+                ))
+            } else {
+                None
+            };
 
             let game_version_str = if let Some(ref game_version) = args.game_version {
                 Some(format!("{:?}", game_version))
@@ -111,7 +110,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let versions = versions_api::get_project_versions(
                 &config,
                 &args.project,
-                Some(&loader_str),
+                loader_str.as_deref(),
                 game_version_str.as_deref(),
                 None,
             )
