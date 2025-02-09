@@ -2,6 +2,10 @@
 name = "mc-image-helper-rs"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/BlayGround/mc-image-helper-rs"
+homepage = "https://github.com/BlayGround/mc-image-helper-rs"
+license-file = "LICENSE"
+license = "MIT"
 
 [dependencies]
 clap = { version = "4.5.28", features = ["derive", "cargo"] }
